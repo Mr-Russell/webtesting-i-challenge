@@ -34,7 +34,6 @@ describe('Succeed Function', ()=>{
     }
     
     expect(enhancer.succeed(strongItem)).toEqual(enhancedStrongItem)
-    expect(enhancer.succeed(enhancedStrongItem)).toEqual(enhancedStrongItem)
   })
 
   it('When "enhancement" equals 20, the item is returned unchanged', ()=>{
@@ -180,7 +179,7 @@ describe('Repair Function', ()=>{
 })
 
 describe('Get Function', ()=>{
-  it('Adds "enhancement" value to item name', ()=>{
+  it('When "enhancement is greater than 0, the "enhancement" value is added to item name', ()=>{
     const randomItem = {
       name: 'weakItem', 
       durability: 100, 
