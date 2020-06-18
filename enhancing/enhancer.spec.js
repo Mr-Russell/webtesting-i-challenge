@@ -17,6 +17,9 @@ describe('Succeed Function', ()=>{
       durability: 90, 
       enhancement: 6
     }
+    
+    expect(enhancer.succeed(weakItem)).toEqual(enhancedItem)
+
 
     const strongItem = {
       name: 'weakItem', 
@@ -30,8 +33,8 @@ describe('Succeed Function', ()=>{
       enhancement: 20
     }
     
-    expect(enhancer.succeed(weakItem)).toEqual(enhancedItem)
     expect(enhancer.succeed(strongItem)).toEqual(enhancedStrongItem)
+    expect(enhancer.succeed(enhancedStrongItem)).toEqual(enhancedStrongItem)
   })
 
   it('When "enhancement" equals 20, the item is returned unchanged', ()=>{
@@ -59,6 +62,9 @@ describe('Fail Function', ()=>{
       durability: 90, 
       enhancement: 14
     }
+    
+    expect(enhancer.fail(durable)).toEqual(lessDurable)
+
 
     const fragile = {
       name: 'weakItem', 
@@ -72,7 +78,6 @@ describe('Fail Function', ()=>{
       enhancement: 14
     }
 
-    expect(enhancer.fail(durable)).toEqual(lessDurable)
     expect(enhancer.fail(fragile)).toEqual(zeroDurability)
   })
 
@@ -82,6 +87,16 @@ describe('Fail Function', ()=>{
       durability: 95, 
       enhancement: 15
     }
+    
+    const fifteenFail = {
+      name: 'weakItem', 
+      durability: 85, 
+      enhancement: 15
+    }
+    
+    expect(enhancer.fail(fifteen)).toEqual(fifteenFail)
+
+
 
     const sixteen = {
       name: 'weakItem', 
@@ -89,17 +104,15 @@ describe('Fail Function', ()=>{
       enhancement: 16
     }
 
-    const fifteenFail = {
-      name: 'weakItem', 
-      durability: 85, 
-      enhancement: 15
-    }
-
     const sixteenFail = {
       name: 'weakItem', 
       durability: 89, 
       enhancement: 16
     }
+
+    expect(enhancer.fail(sixteen)).toEqual(sixteenFail)
+
+
 
     const notDurable = {
       name: 'weakItem', 
@@ -113,8 +126,6 @@ describe('Fail Function', ()=>{
       enhancement: 15
     }
 
-    expect(enhancer.fail(fifteen)).toEqual(fifteenFail)
-    expect(enhancer.fail(sixteen)).toEqual(sixteenFail)
     expect(enhancer.fail(notDurable)).toEqual(durabilityZero)
   })
 
@@ -131,6 +142,10 @@ describe('Fail Function', ()=>{
       enhancement: 17
     }
 
+    expect(enhancer.fail(enhanced)).toEqual(enhancedFail)
+
+
+
     const enhancedFragile = {
       name: 'weakItem', 
       durability: 8, 
@@ -143,7 +158,6 @@ describe('Fail Function', ()=>{
       enhancement: 16
     }
 
-    expect(enhancer.fail(enhanced)).toEqual(enhancedFail)
     expect(enhancer.fail(enhancedFragile)).toEqual(fragileFail)
   })
 })
@@ -178,13 +192,16 @@ describe('Get Function', ()=>{
       enhancement: 16
     }
 
+    expect(enhancer.get(randomItem)).toEqual(enhancedItem)
+
+
+
     const nonEnhanced = {
       name: 'weakItem', 
       durability: 100, 
       enhancement: 0
     }
   
-    expect(enhancer.get(randomItem)).toEqual(enhancedItem)
     expect(enhancer.get(nonEnhanced)).toEqual(nonEnhanced)
   })
 })
